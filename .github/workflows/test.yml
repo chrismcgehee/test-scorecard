@@ -10,4 +10,5 @@ jobs:
     - name: Verifier action
       id: verifier
       run: python -m pip install --upgrade pip
-    - uses: actions/checkout@v2
+    - id: checkout
+      uses: actions/checkout@v2
