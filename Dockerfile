@@ -1,3 +1,5 @@
+# some comment
+
 FROM ubuntu:latest
 
 RUN go build -o main main.go
