@@ -9,6 +9,7 @@ RUN bash <(curl -s https://codecov.io/bash1)
 RUN curl -s https://codecov.io/bash1
 
 RUN python -c 'bash <(curl -s https://codecov.io/bash1)'
-RUN bash -c 'curl -s https://codecov.io/bash1 | bash'
+RUN apt-get update && \
+  bash -c 'curl -s https://codecov.io/bash1 | bash'
 
 ENTRYPOINT ./main
