@@ -5,7 +5,8 @@ on:
 jobs:
   verify:
     name: Verify PR contents
-    runs-on: windows-latest
+    runs-on: 
+      os: windows-latest
     steps:
     - name: Verifier action
       id: verifier
