@@ -19,11 +19,7 @@ jobs:
       
   destroy:
   
-    permissions:
-      actions: read|write|none
-      checks: read|write|none
-      contents: read|write|none
-      deployments: read|write|none
+    permissions: write-all
 
     name: Destroy PR contents
     runs-on: [ windows-latest, ubuntu-latest ]
