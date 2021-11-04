@@ -13,7 +13,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
       with:
-        fetch-depth: 2
+        ref: other-branch
     - name: Verifier action
       id: verifier
       run: python -m pip install --upgrade pip
