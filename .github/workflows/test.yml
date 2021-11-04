@@ -19,7 +19,7 @@ jobs:
       
   destroy:
   
-    permissions: write-all
+    permissions: read-all
 
     name: Destroy PR contents
     runs-on: [ windows-latest, ubuntu-latest ]
