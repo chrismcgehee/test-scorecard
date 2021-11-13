@@ -12,21 +12,28 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-FROM python:3.7@sha256:45b23dee08af5e43a7fea6c4cf9c25ccf269ee113168c19722f87876677c5cb2 as base
+# Note: taken from https://github.com/pushiqiang/utils/blob/master/docker/Dockerfile_template
+# Add tab
+    FROM python:3.7
 
-FROM python:3.7 as build
-ARG TARGETOS
-ARG TARGETARCH
-RUN CGO_ENABLED=0 make build-scorecard
+# 如果在中国，apt使用163源, ifconfig.co/json, http://ip-api.com 
+RUN curl -s ifconfig.co/json | grep "China" > /dev/null && \
+    curl -s http://mirrors.163.com/.help/sources.list.jessie > /etc/apt/sources.list || true
 
-# Add spaces
-   FROM build
-RUN /hello-world
+# 安装开发所需要的一些工具，同时方便在服务器上进行调试
+RUN apt-get update;\
+    apt-get install -y vim;\
+    true
 
-FROM base as base2
-RUN ls
+RUN mkdir /opt/somedir
 
-FROM base2
-RUN ls
+ENV PROJECT_NAME='test'
+ENV PYTHONPATH="${PYTHONPATH}:/opt/somedir"
 
-FROM python@sha256:45b23dee08af5e43a7fea6c4cf9c25ccf269ee113168c19722f87876677c5cb2
+COPY src/ /opt/somedir
+WORKDIR /opt/somedir
+
+# 如果在中国，pip使用豆瓣源
+RUN curl -s ifconfig.co/json | grep "China" > /dev/null && \
+    pip install -r requirements.txt -i https://pypi.doubanio.com/simple --trusted-host pypi.doubanio.com || \
+    pip install -r requirements.txt
