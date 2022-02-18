@@ -1,13 +1,17 @@
 name: PR Verifier
 
 
+permissions: read-all
+
 on:
   pull_request_target:
     types: [opened, edited, reopened]
 jobs:
   verify:
     name: Verify PR contents
-    runs-on: windows-latest
+    runs-on: windows-latest    
+    permissions:
+      contents: deployments
     steps:
     - uses: actions/checkout@v2
       with:
